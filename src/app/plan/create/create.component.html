@@ -1,0 +1,200 @@
+<div class="container">
+    <div>
+        <form class="form-vertical" [formGroup]="form" novalidate (ngSubmit)="onSubmit()">
+            <div class="row">
+                <div class="col-md-1">
+                    <!-- <button class="btn- btn-sm btn-info top-center">Previous Day</button> -->
+                </div>
+                <div class="col-md-10">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <span class="day-text-heading">
+                                {{getDayName()}}
+                            </span>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="top-center" style="margin-top:10px">
+                                <input type="text" placeholder="Pick a date to plan" class="form-control"
+                                    formControlName="planDate" [bsValue]="selectedDate" 
+                                    [(ngModel)]="selectedDate"
+                                    [bsConfig]="{ isAnimated: true }" bsDatepicker>                                   
+                            </div>
+
+                        </div>
+                        <div class="col-md-4">
+                            <div class="top-center highlight-date">
+                                You have currently picked "{{getPlanDate()}}"
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <hr class="for-hr">
+                    <div *ngIf="errors.length" style="color:red; margin:1px; border-radius:5px" >
+                        <h3>Validation Errors</h3>
+                        <p *ngFor="let item of errors" >
+                            {{item}}<br>
+                        </p>
+                    </div>
+                    <div class="row ">
+                        <div class="col-md-5">
+                            <div class="div-boxed">
+                                <h3 class="center">{{getCategoryName(1)}}</h3><br>
+                                <div formArrayName="priorities" *ngFor="let item of priorities.controls; let i=index;">
+                                    <div class="row" [formGroupName]="i">
+                                        <div class="col-md-1">
+                                            <p> {{i+1}} </p>
+                                        </div>
+                                        <div class="col-md-11">
+                                            <div class="form-group">
+                                                <input [class.has-error]="validateField(item)"
+                                                    formControlName="planName" placeholder="Plan name" maxlength="100"
+                                                    class="form-control">
+                                                <span class="help-block" *ngIf="validateField(item)">Plan name is
+                                                    required
+                                                </span>
+                                                <br>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <h3 class="center">{{getCategoryName(2)}}</h3><br>
+                                <div formArrayName="todoList" *ngFor="let item of todoList.controls; let i=index;">
+                                    <div class="row" [formGroupName]="i">
+                                        <div class="col-md-1">
+                                            <p> {{i+1}} </p>
+                                        </div>
+                                        <div class="col-md-11">
+                                            <div class="form-group">
+                                                <input [class.has-error]="validateField(item)"
+                                                    formControlName="planName" placeholder="Plan name" maxlength="100"
+                                                    class="form-control">
+                                                <span class="help-block" *ngIf="validateField(item)">Plan name is
+                                                    required
+                                                </span>
+                                                <br>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <h3 class="center">{{getCategoryName(3)}}</h3><br>
+                                <div formArrayName="thingsToGetDone"
+                                    *ngFor="let item of thingsToGetDone.controls; let i=index;">
+                                    <div class="row" [formGroupName]="i">
+                                        <div class="col-md-1">
+                                            <p> {{i+1}} </p>
+                                        </div>
+                                        <div class="col-md-11">
+                                            <div class="form-group">
+                                                <input [class.has-error]="validateField(item)"
+                                                    formControlName="planName" placeholder="Plan name" maxlength="100"
+                                                    class="form-control">
+                                                <span class="help-block" *ngIf="validateField(item)">Plan name is
+                                                    required
+                                                </span>
+                                                <br>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <span class="sub-heading">Notes:</span>
+                                <div>
+                                    <textarea rows="10" cols="10" [class.has-error]="control('notes')?.errors"
+                                        formControlName="notes" placeholder="Notes" class="form-control"></textarea>
+
+                                    <app-label-error [control]="control('notes')"></app-label-error>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-7">
+                            <div class="div-boxed">
+                                <h3 class="center">{{getCategoryName(4)}}</h3><br>
+                                <div formArrayName="plansSchedules"
+                                    *ngFor="let item of plansSchedules.controls; let i=index;">
+                                    <div class="row" [formGroupName]="i">
+                                        <div class="col-md-2">
+                                            <p>{{getSlotName(item.value.timeSlotId)}}</p>
+                                        </div>
+                                        <div class="col-md-2">                         
+                                            <select [class.has-error]="control('taskPriority')?.errors" class="form-control"
+                                            formControlName="taskPriority">
+                                                <option value="1">High</option>
+                                                <option value="2">Medium</option>
+                                                <option value="3">Low</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input [class.has-error]="validateField(item)" formControlName="planName"
+                                                placeholder="Plan name" maxlength="100" class="form-control">
+                                            <span class="help-block" *ngIf="validateField(item)">Plan name is
+                                                required
+                                            </span>
+                                            <br>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="div-boxed">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div>
+                                    <span class="sub-heading">Water:</span>
+                                    <div>
+                                        <img src="../../../assets/water-glass.png" width="50px" height="50px">&nbsp;
+                                        <img src="../../../assets/water-glass.png" width="50px" height="50px">&nbsp;
+                                        <img src="../../../assets/water-glass.png" width="50px" height="50px">&nbsp;
+                                        <img src="../../../assets/water-glass.png" width="50px" height="50px">&nbsp;
+                                        <img src="../../../assets/water-glass.png" width="50px" height="50px">&nbsp;
+                                        <img src="../../../assets/water-glass.png" width="50px" height="50px">&nbsp;
+                                        <img src="../../../assets/water-glass.png" width="50px" height="50px">
+                                    </div>
+                                </div>
+                                <hr>
+                                <div>
+                                    <span class="sub-heading">
+                                        Exercise & Health:
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div>
+                                    <span class="sub-heading">Mood:</span>
+                                    <div>
+                                        <img src="../../../assets/very-happy.gif" width="50px" height="50px">&nbsp;
+                                        <img src="../../../assets/happy.png" width="50px" height="50px">&nbsp;
+                                        <img src="../../../assets/ok-ok.gif" width="50px" height="50px">&nbsp;
+                                        <img src="../../../assets/sad.png" width="50px" height="50px">&nbsp;
+                                        <img src="../../../assets/angry.gif" width="50px" height="50px">
+                                    </div>
+                                </div>
+                                <hr>
+                                <div>
+                                    <div class="pull-right"
+                                        [title]="!isformValid()?'Form is incomplete to submit':'Submit form'">
+                                        <button [disabled]="!isformValid()" class="btn btn-primary btn-lg"
+                                            type="submit">Save</button>
+                                        &nbsp;
+                                        <button class="btn btn-default  btn-lg" type="button">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <!-- <button class="btn- btn-sm btn-info top-center">Next Day</button> -->
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+</div>

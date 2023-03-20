@@ -1,0 +1,108 @@
+<div class="container">
+    <div>
+        <div class="row">
+            <div class="col-md-1">
+                <!-- <button class="btn- btn-sm btn-info top-center">Previous Day</button> -->
+            </div>
+            <div class="col-md-10">
+                <div class="row">
+                    <div class="col-md-4">
+                        <span class="day-text-heading">
+                            {{getDayName()}}
+                        </span>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="top-center" style="margin-top:10px">
+                            <input type="text" placeholder="Pick a date to plan" class="form-control"
+                                [bsValue]="selectedDate" 
+                                [(ngModel)]="selectedDate"
+                                (ngModelChange)="selectedDateChanged($event)"
+                                [bsConfig]="{ isAnimated: true }" bsDatepicker>                                   
+                        </div>
+
+                    </div>
+                    <div class="col-md-4">
+                        <div class="top-center highlight-date">
+                            You have currently picked "{{getPlanDate()}}"
+                        </div>
+                    </div>
+
+
+                </div>
+                <hr class="for-hr">
+                <div class="row ">
+                    <div class="col-md-5">
+                        <div class="div-boxed">
+                            <app-view-plans *ngIf="priorityCategoryItems" [categoryId]="1"
+                                [plansSchedules]="priorityCategoryItems" [timeSlots]="timeSlots"></app-view-plans>
+                            <hr>
+                            <app-view-plans *ngIf="toDoListCategoryItems" [categoryId]="2"
+                                [plansSchedules]="toDoListCategoryItems" [timeSlots]="timeSlots"></app-view-plans>
+                            <hr>
+                            <app-view-plans *ngIf="thingsToDoCategoryItems" [categoryId]="3"
+                                [plansSchedules]="thingsToDoCategoryItems" [timeSlots]="timeSlots"></app-view-plans>
+                        </div>
+                    </div>
+
+                    <div class="col-md-7">
+                        <div class="div-boxed">
+                            <app-view-plans *ngIf="planAndScheduleCategoryItems" [categoryId]="4"
+                                [useSlotName]="true" [plansSchedules]="planAndScheduleCategoryItems"
+                                [timeSlots]="timeSlots"></app-view-plans>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="div-boxed">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div>
+                                <span class="sub-heading">Water:</span>
+                                <div>
+                                    <img src="../../../assets/water-glass.png" width="50px" height="50px">&nbsp;
+                                    <img src="../../../assets/water-glass.png" width="50px" height="50px">&nbsp;
+                                    <img src="../../../assets/water-glass.png" width="50px" height="50px">&nbsp;
+                                    <img src="../../../assets/water-glass.png" width="50px" height="50px">&nbsp;
+                                    <img src="../../../assets/water-glass.png" width="50px" height="50px">&nbsp;
+                                    <img src="../../../assets/water-glass.png" width="50px" height="50px">&nbsp;
+                                    <img src="../../../assets/water-glass.png" width="50px" height="50px">
+                                </div>
+                            </div>
+                            <hr>
+                            <div>
+                                <span class="sub-heading">
+                                    Exercise & Health:
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div>
+                                <span class="sub-heading">Mood:</span>
+                                <div>
+                                    <img src="../../../assets/very-happy.gif" width="50px" height="50px">&nbsp;
+                                    <img src="../../../assets/happy.png" width="50px" height="50px">&nbsp;
+                                    <img src="../../../assets/ok-ok.gif" width="50px" height="50px">&nbsp;
+                                    <img src="../../../assets/sad.png" width="50px" height="50px">&nbsp;
+                                    <img src="../../../assets/angry.gif" width="50px" height="50px">
+                                </div>
+                            </div>
+                            <hr>
+                            <div>
+                                <span class="sub-heading">Notes:</span>
+                                <div *ngIf="userPlanSchedule">
+                                    <p>{{userPlanSchedule.notes || ''}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1">
+                <!-- <button class="btn- btn-sm btn-info top-center">Next Day</button> -->
+            </div>
+        </div>
+
+    </div>
+
+
+</div>

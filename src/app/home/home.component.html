@@ -1,0 +1,44 @@
+<div class="container">    
+    <h5 class="center-sub">Below is the current Month Calandar</h5>
+    <br>
+    <div class="row">
+        <div class="col" *ngFor="let n of monthDays">
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front" [ngClass]="getHighlightCss(n)">
+                        <h4>{{getDayDetails(n)}}</h4>
+
+                        <h5 *ngIf="getHighlightCss(n)==='highlightToday'">Today</h5>
+                        <small>
+                            <i>
+                                <span class="color-purple">Hover on me to see details!</span>
+                            </i>
+                        </small>
+                        <br>
+                    </div>
+                    <div class="flip-card-back">
+                        <h6>
+                            {{getDayDetails(n)}}</h6>
+                        <div>
+                            <small>
+                                <i> <span>{{isPlanPresentForDay(n).length?'View your plan and schedules':'Looks you did not plan yet! Plan your day here'}}</span></i>
+                            </small>
+                            <br>
+                            <br>
+                            <button class="btn btn-sm btn-success" *ngIf="isPlanPresentForDay(n).length"
+                                (click)="viewPlanDetails(n,'view')">View</button>&nbsp;
+                                <button class="btn btn-sm btn-warning" *ngIf="isPlanPresentForDay(n).length"
+                                (click)="viewPlanDetails(n,'edit')">Edit</button>&nbsp;
+                            <button class="btn btn-sm btn-primary" [routerLink]="['/plan/create']"
+                                routerLinkActive="router-link-active" [queryParams]="{selectedDate:getDayDetails(n)}"
+                                *ngIf="!isPlanPresentForDay(n).length">Plan</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

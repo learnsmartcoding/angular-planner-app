@@ -1,0 +1,43 @@
+<h3 class="center">{{name}}</h3><br>
+<div *ngIf="!useSlotName">
+    <div *ngFor="let item of plansSchedules">
+        <div class="row">
+            <div class="col-md-1">
+                <img src="../../../assets/check-green.png" *ngIf="item.isDone && item.isDone!==undefined" width="25px"
+                    height="25px">
+                <img src="../../../assets/cancel-red.png" *ngIf="!item.isDone && item.isDone!==undefined" width="25px"
+                    height="25px">
+                <img src="../../../assets/plan-it.png" *ngIf="item.isDone===undefined" width="25px"
+                    height="25px">
+            </div>
+            <div class="col-md-11">
+                <p [ngClass]="{'border-bottom':item.planName.length}" *ngIf="item.planName.length">{{item.planName}}</p>
+                <hr *ngIf="!item.planName.length">
+            </div>
+     
+        </div>
+    </div>
+</div>
+
+<div *ngIf="useSlotName">
+    <div *ngFor="let item of plansSchedules">
+        <div class="row">
+            <div class="col-md-1">                
+                <img src="../../../assets/check-green.png" *ngIf="item.isDone && item.isDone!==undefined" width="25px"
+                    height="25px">
+                <img src="../../../assets/cancel-red.png" *ngIf="!item.isDone && item.isDone!==undefined" width="25px"
+                    height="25px">
+                <img src="../../../assets/plan-it.png" *ngIf="item.isDone===undefined" width="25px"
+                    height="25px">
+            </div>
+            <div class="col-md-2">
+                <p>{{item.slotName}}</p>
+            </div>
+            <div class="col-md-9">
+                <p [ngClass]="{'border-bottom':item.planName.length}" *ngIf="item.planName.length">{{item.planName}}</p>
+                <hr *ngIf="!item.planName.length">
+            </div>
+        </div>
+    </div>
+ 
+</div>

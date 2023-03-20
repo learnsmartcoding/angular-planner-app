@@ -1,0 +1,6 @@
+.div-boxed {
+  border: 0.025em solid black;    
+  padding: 10px;    
+  border-radius: 15px;
+  margin: 1px;
+}
